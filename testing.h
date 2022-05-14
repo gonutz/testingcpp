@@ -4,7 +4,7 @@
 struct name##_test__ : public test_case__ { \
     void run__();                           \
 };                                          \
-name##_test__ name##_test_instance;         \
+name##_test__ name##_test_instance__;       \
 void name##_test__::run__()                 \
 
 #define check(that)                                 \
@@ -57,13 +57,10 @@ struct test_case__ {
     test_case__* next__;
 
     test_case__() {
-        next__ = 0;
-        test_passed__ = true;
-        // Append ourselves to the end of the linked list of tests.
-        test_case__** t = &first_test_case__;
-        while(*t != 0)
-            t = &((*t)->next__);
-        *t = this;
+        this->test_passed__ = true; // Until it fails.
+        // Prepend ourselves at the start of the linked list of tests.
+        this->next__ = first_test_case__;
+        first_test_case__ = this;
     }
 
     virtual void run__() = 0;
