@@ -61,13 +61,11 @@ struct test_case__ {
         this->test_passed__ = true; // Until it fails.
         this->next__ = 0;
         // Append ourselves to the end of the linked list of tests.
-        if (first_test_case__ == 0) {
+        if (first_test_case__ == 0)
             first_test_case__ = this;
-            last_test_case__ = this;
-        } else {
+        else
             last_test_case__->next__ = this;
-            last_test_case__ = this;
-        }
+        last_test_case__ = this;
     }
 
     virtual void run__() = 0;
