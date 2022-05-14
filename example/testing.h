@@ -51,6 +51,7 @@ void name##_test__::run__()                 \
 struct test_case__;
 
 test_case__* first_test_case__ = 0;
+test_case__* last_test_case__ = 0;
 
 struct test_case__ {
     bool test_passed__;
@@ -58,9 +59,15 @@ struct test_case__ {
 
     test_case__() {
         this->test_passed__ = true; // Until it fails.
-        // Prepend ourselves at the start of the linked list of tests.
-        this->next__ = first_test_case__;
-        first_test_case__ = this;
+        this->next__ = 0;
+        // Append ourselves to the end of the linked list of tests.
+        if (first_test_case__ == 0) {
+            first_test_case__ = this;
+            last_test_case__ = this;
+        } else {
+            last_test_case__->next__ = this;
+            last_test_case__ = this;
+        }
     }
 
     virtual void run__() = 0;
