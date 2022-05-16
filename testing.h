@@ -60,11 +60,12 @@ struct test_case__ {
     test_case__() {
         this->test_passed__ = true; // Until it fails.
         this->next__ = 0;
-        // Append ourselves to the end of the linked list of tests.
+        // Append ourselves to the end of the linked list of tests...
         if (first_test_case__ == 0)
             first_test_case__ = this;
         else
             last_test_case__->next__ = this;
+        // ... which makes use the new last test in the list.
         last_test_case__ = this;
     }
 
